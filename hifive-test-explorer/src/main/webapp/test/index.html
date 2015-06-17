@@ -4,48 +4,14 @@
 	<meta charset="utf-8">
 	<title>QUnit</title>
 	<link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.18.0.css">
-	<script src="//code.jquery.com/qunit/qunit-1.18.0.js"></script>
-	<script>
-		function test(iframe) {
-			var sandbox = iframe.contentWindow;
-
-			// Watch DOM change of sandbox, take coverage report from iframe and
-			// insert into test report page
-			var body = sandbox.document.body;
-			body._appendChild = body.appendChild;
-			body.appendChild = function(elem) {
-				if (elem.childElementCount === 1 && elem.children[0].id === 'blanket-main') {
-					document.body.appendChild(elem.children[0]);
-				} else {
-					body._appendChild.apply(body, arguments);
-				}
-			}
-
-			// Test codes
-			var page = sandbox.hifive.test.explorer;
-			var TestResultListLogic = page.logic.TestResultListLogic;
-			var TestResultListController = page.controller.TestResultListController;
-
-			QUnit.test("hello test", function(assert) {
-				assert.ok(1 == "1", "Passed!");
-			});
-		}
-	</script>
+	<link rel="stylesheet" href="test.css">
 </head>
 <body>
-	<iframe src="../list.html" onload="test(this)" style="display: none"></iframe>
 	<div id="qunit"></div>
 	<div id="qunit-fixture"></div>
 
-	<!-- Minimal css/js required by blanket coverage report -->
-	<style>
-		#blanket-main {margin:2px;background:#EEE;color:#333;clear:both;font-family:'Helvetica Neue Light', 'HelveticaNeue-Light', 'Helvetica Neue', Calibri, Helvetica, Arial, sans-serif; font-size:17px;} #blanket-main a {color:#333;text-decoration:none;}  #blanket-main a:hover {text-decoration:underline;} .blanket {margin:0;padding:5px;clear:both;border-bottom: 1px solid #FFFFFF;} .bl-error {color:red;}.bl-success {color:#5E7D00;} .bl-file{width:auto;} .bl-cl{float:left;} .blanket div.rs {margin-left:50px; width:150px; float:right} .bl-nb {padding-right:10px;} #blanket-main a.bl-logo {color: #EB1764;cursor: pointer;font-weight: bold;text-decoration: none} .bl-source{ overflow-x:scroll; background-color: #FFFFFF; border: 1px solid #CBCBCB; color: #363636; margin: 25px 20px; width: 80%;} .bl-source div{white-space: pre;font-family: monospace;} .bl-source > div > span:first-child{background-color: #EAEAEA;color: #949494;display: inline-block;padding: 0 10px;text-align: center;width: 30px;} .bl-source .miss{background-color:#e6c3c7} .bl-source span.branchWarning{color:#000;background-color:yellow;} .bl-source span.branchOkay{color:#000;background-color:transparent;}
-	</style>
-	<script>
-		function blanket_toggleSource(id){
-			var e = document.getElementById(id);
-			e.style.display = e.style.display === 'block' ? 'none' : 'block';
-		}
-	</script>
+	<script src="//code.jquery.com/qunit/qunit-1.18.0.js"></script>
+	<iframe src="../list.html" style="width: 100%; height: 50vh"></iframe>
+	<script src="test.js"></script>
 </body>
 </html>
