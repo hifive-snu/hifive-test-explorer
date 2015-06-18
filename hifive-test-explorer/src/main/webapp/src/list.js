@@ -90,6 +90,7 @@
 			});
 		},
 	};
+	h5.hack.preventDoubleExpose(testResultListLogic);
 	h5.core.expose(testResultListLogic);
 })(jQuery);
 (function($) {
@@ -292,6 +293,7 @@
 			});
 		},
 	};
+	h5.hack.preventDoubleExpose(testResultListController);
 	h5.core.expose(testResultListController);
 })(jQuery);
 $(function() {

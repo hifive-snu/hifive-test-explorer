@@ -33,6 +33,7 @@
 		}
 	};
 
+	h5.hack.preventDoubleExpose(testResultDiffLogic);
 	h5.core.expose(testResultDiffLogic);
 })(jQuery);
 (function($) {
@@ -288,6 +289,7 @@
 		},
 	};
 
+	h5.hack.preventDoubleExpose(testResultDiffController);
 	h5.core.expose(testResultDiffController);
 })(jQuery);
 $(function() {
