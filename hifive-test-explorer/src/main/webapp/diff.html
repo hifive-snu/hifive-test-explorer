@@ -125,5 +125,19 @@
 				</div>
 			</div>
 		</div>
+
+	<script>
+	// Codes for test coverage report
+	+function(){
+		// Executed only when this page is under <iframe>
+		if (self !== parent) {
+			window.QUnit = parent.QUnit;
+			var js = document.createElement('script');
+			js.src = '//cdn.rawgit.com/alex-seville/blanket/master/dist/qunit/blanket.min.js';
+			js.dataset.coverOnly = 'diff.js';
+			document.body.appendChild(js);
+		}
+	}()
+	</script>
 	</body>
 </html>

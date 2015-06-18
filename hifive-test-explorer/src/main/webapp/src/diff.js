@@ -75,21 +75,22 @@
 			var id = queryParams.id;
 
 			// Get screenshot details
-			this._testResultDiffLogic.getScreenshot(id).done(this.own(function(screenshot) {
+			var self = this;
+			this._testResultDiffLogic.getScreenshot(id).done(function(screenshot) {
 				// Expected mode
 				if (screenshot.expectedScreenshot == null) {
-					this._setActualImageSrc(false, {
+					self._setActualImageSrc(false, {
 						id: id
 					});
-					this._hideActualMode();
+					self._hideActualMode();
 					return;
 				}
-				this._hideExpectedMode();
+				self._hideExpectedMode();
 				var expectedScreenshot = screenshot.expectedScreenshot;
 
 				// Test not executed
 				if (screenshot.comparisonResult == null) {
-					this._setExpectedImageSrc(false, {
+					self._setExpectedImageSrc(false, {
 						id: expectedScreenshot.id
 					});
 					return;
@@ -97,28 +98,28 @@
 
 				if (screenshot.comparisonResult) {
 					// Test succeeded
-					this._setActualImageSrc(false, {
+					self._setActualImageSrc(false, {
 						id: id
 					});
 
-					this._setExpectedImageSrc(false, {
+					self._setExpectedImageSrc(false, {
 						id: expectedScreenshot.id
 					});
 				} else {
 					// Test failed
-					this._setActualImageSrc(true, {
+					self._setActualImageSrc(true, {
 						sourceId: id,
 						targetId: expectedScreenshot.id
 					});
 
-					this._setExpectedImageSrc(true, {
+					self._setExpectedImageSrc(true, {
 						sourceId: expectedScreenshot.id,
 						targetId: id
 					});
 				}
 
-				this._initEdgeOverlapping(expectedScreenshot.id, id);
-			}));
+				self._initEdgeOverlapping(expectedScreenshot.id, id);
+			});
 
 			this._initializeSwipeHandle();
 			this._initializeOnionHandle();
@@ -235,23 +236,23 @@
 		 */
 		_setImageSrc: function(selector, withMarker, params) {
 			var url = withMarker ? 'image/getDiff' : 'image/get';
-			this.$find(selector).attr('src', hifive.test.explorer.utils.formatUrl(url, params));
+			$(selector).attr('src', hifive.test.explorer.utils.formatUrl(url, params));
 		},
 
 		_hideActualMode: function() {
-			this.$find('#actual-mode').hide();
+			$('#actual-mode').hide();
 		},
 
 		_hideExpectedMode: function() {
-			this.$find('#expected-mode').hide();
+			$('#expected-mode').hide();
 		},
 
 		_initializeSwipeHandle: function() {
 			var min = 0,max = 1000,step = 1;
 
-			var $handle = this.$find('#swipe-handle');
-			var $actual = this.$find('#swipe .actual');
-			var $actualImg = this.$find('#swipe .actual > img');
+			var $handle = $('#swipe-handle');
+			var $actual = $('#swipe .actual');
+			var $actualImg = $('#swipe .actual > img');
 
 			$handle.attr('min', min);
 			$handle.attr('max', max);
@@ -271,8 +272,8 @@
 		_initializeOnionHandle: function() {
 			var min = 0,max = 1000,step = 1;
 
-			var $handle = this.$find('#onion-handle');
-			var $actual = this.$find('#onion-skin .actual');
+			var $handle = $('#onion-handle');
+			var $actual = $('#onion-skin .actual');
 
 			$handle.attr('min', min);
 			$handle.attr('max', max);
