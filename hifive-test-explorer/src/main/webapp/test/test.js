@@ -1,12 +1,18 @@
 +function() {
-	var iframe = document.querySelector('iframe');
+	//
+	// Execute a function only once per DOM
+	//
+	EventTarget.prototype.once = function(handler) {
+		this.addEventListener('load', wrapper);
+		function wrapper() {
+			this.removeEventListener('load', wrapper);
+			handler.apply(this, arguments);
+		}
+	}
 
-	// Execute test() only once
-	iframe.addEventListener('load', test);
-	function test() {
-		iframe.removeEventListener('load', test);
-		var sandbox = iframe.contentWindow;
 
+	document.querySelector('iframe').once(function() {
+		var sandbox = this.contentWindow;
 
 		//
 		// Watch DOM change of sandbox, take coverage report from iframe and
