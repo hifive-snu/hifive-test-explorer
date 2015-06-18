@@ -79,13 +79,13 @@
 
 		QUnit.test('.explorer-test-result click', function(assert) {
 			var done = assert.async();
-			var $parent = $sandbox.find('.explorer-collapsable').last();
+			var $parent = $sandbox.find('.explorer-collapsable[data-test-execution-id=15]');
 			$parent.on('shown.bs.collapse', collapse);
 			$parent.find('div[role=tabpanel]').collapse('show');
 
 			function collapse() {
 				assert.ok(true, 'Successfully opened collapsed menu!');
-				var $elem = $parent.find('.explorer-test-result').last();
+				var $elem = $parent.find('.explorer-test-result[data-screenshot-id=147]');
 				$elem.on('click', click);
 				$elem.trigger('click');
 			}
